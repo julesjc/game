@@ -6,33 +6,20 @@ namespace Game
 {
     class Yohann : CircleColliderObject2D
     {
-        private float newSpeed, speed = 1, timeElapsed = 0;
+        private float speed = 1, timeElapsed = 0;
         private bool dead;
         private static Sound deathSound = AudioManager.LoadSound("data/sound/vladmarche.ogg");
         private static Texture texture = new Texture("data/sprites/yohan.png");
-        FramesTimer actions;
 
         public Yohann(Vector2f pos) : base(100)
         {
             SetTexture(texture);
             SetPos(pos);
-            newSpeed = speed;
-
-            List<Shot> lastShots = new List<Shot>();
-            actions = new FramesTimer(new Dictionary<int, FramesTimer.Callback>()
-            {
-                { 100, () => {GetAnimationController()?.SetAnimation("running");} }
-            }
-            , false, true);
-
-            actions.Bind();
         }
 
         public override void Update()
         {
             base.Update();
-
-            speed = MathUtils.Lerpf(speed, newSpeed, 0.1f);
 
             if (dead)
             {
@@ -84,7 +71,6 @@ namespace Game
         public override void Unload()
         {
             base.Unload();
-            actions.Die();
         }
     }
 }
