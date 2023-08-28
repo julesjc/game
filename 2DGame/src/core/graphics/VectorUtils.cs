@@ -3,20 +3,11 @@
 
 namespace Game
 {
-    static class GraphicsUtils
+    static class VectorUtils
     {
         public static Vector2f Lerp(Vector2f a, Vector2f b, float t)
         {
             return (1 - t) * a + t * b;
-        }
-
-        public static float Lerpf(float a, float b, float t)
-        {
-            return (a + t * (b - a));
-        }
-        public static int Lerpi(int a, int b, int t)
-        {
-            return (a + t * (b - a));
         }
         public static float Magnitude(Vector2f a)
         {
@@ -67,9 +58,12 @@ namespace Game
             }
         }
 
-        public static float GetSumSquared(float a, float b)
+        public static Vector2f Wave(float timeElapsed, float frequency, float amplitude)
         {
-            return (a + b) * (a + b);
+            float sinScale = amplitude * (float)Math.Sin(frequency * timeElapsed);
+            float cosScale = amplitude * (float)Math.Cos(frequency * timeElapsed);
+
+            return new Vector2f(1.0f + sinScale, 1.0f + cosScale);
         }
     }
 }

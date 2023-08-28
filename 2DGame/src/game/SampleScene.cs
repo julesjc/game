@@ -21,10 +21,10 @@ namespace Game
             Vector2f windowSize = App.app.DefaultView.Size;
             FramesTimer step = new FramesTimer(new Dictionary<int, FramesTimer.Callback>()
             {
-                { 100 - elapsed, () => {new Enemy(new Vector2f(windowSize.X/2, windowSize.Y)).Bind(); }},
-                { 150 - elapsed, () => {new Enemy(new Vector2f(windowSize.X/2, 0)).Bind(); }},
-                { 200 - elapsed, () => {new Enemy(new Vector2f(0, windowSize.Y/2)).Bind(); }},
-                { 350 - elapsed, () => {new Enemy(new Vector2f(windowSize.X, windowSize.Y/2)).Bind(); }},
+                { 100 - elapsed, () => {new Yohann(new Vector2f(windowSize.X/2, windowSize.Y)).Bind(); }},
+                { 150 - elapsed, () => {new Vlad(new Vector2f(windowSize.X/2, 0)).Bind(); }},
+                { 200 - elapsed, () => {new Vlad(new Vector2f(0, windowSize.Y/2)).Bind(); }},
+                { 350 - elapsed, () => {new Vlad(new Vector2f(windowSize.X, windowSize.Y/2)).Bind(); }},
                 { 400 - elapsed, () => {elapsed --;} }
 
             }
@@ -32,7 +32,7 @@ namespace Game
             step.Bind();
 
             music.Loop = true;
-            music.Play();
+            // music.Play();
         }
     }
 }

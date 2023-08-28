@@ -37,12 +37,12 @@ namespace Game
 
         public void MoveTowards(Vector2f target, float speed)
         {
-            Transform(GraphicsUtils.GetDirection(GetPos(), target) * speed);
+            Transform(VectorUtils.GetDirection(GetPos(), target) * speed);
         }
 
         public void LookAt(Vector2f direction)
         {
-            SetRotation(GraphicsUtils.GetRotationAngle(GetPos(), direction));
+            SetRotation(VectorUtils.GetRotationAngle(GetPos(), direction));
         }
 
         public void Hide()

@@ -4,24 +4,43 @@ using SFML.System;
 
 namespace Game
 {
-    class Enemy : CircleColliderObject2D
+    class Vlad : CircleColliderObject2D
     {
-        private float speed = 2;
+        private float newSpeed, speed = 2;
         private bool dead;
-        public static Sound deathSound = AudioManager.LoadSound("data/sound/vladmarche.ogg");
+        private static Sound deathSound = AudioManager.LoadSound("data/sound/vladmarche.ogg");
+        private static Texture[] textures = new Texture[2] { new Texture("data/sprites/vlad1.png"), new Texture("data/sprites/vlad2.png") };
         FramesTimer actions;
 
-        public Enemy(Vector2f pos) : base(100)
+        public Vlad(Vector2f pos) : base(100)
         {
-            Texture[] textures = new Texture[2] { new Texture("data/sprites/vlad1.png"), new Texture("data/sprites/vlad2.png") };
             Animation[] animations = new Animation[] { new Animation("running", textures, 10), new Animation("stop", new Texture[1] { textures[0] }, 60) };
             BindAnimations(animations).SetAnimation("running");
             SetPos(pos);
+            newSpeed = speed;
 
+            List<Shot> lastShots = new List<Shot>();
             actions = new FramesTimer(new Dictionary<int, FramesTimer.Callback>()
             {
-                { 50, () => {speed = 0; this.GetAnimationController()?.SetAnimation("stop"); new Shot(GetPos(), GraphicsUtils.GetDirection(GetPos(), Player.getInstance().GetPos())*7, true).Bind();} },
-                { 100, () => {speed = RandomUtils.GetBetweenRange(5, 8); this.GetAnimationController()?.SetAnimation("running");} }
+                { 50, () => {
+                        newSpeed = 0;
+                        GetAnimationController()?.SetAnimation("stop");
+                        for(int i =0;i <360; i++) {
+                            if (i % 10 ==0) {
+                                lastShots.Add((Shot) new Shot(GetPos(), VectorUtils.AngleToVector(i), 5, true).Bind());
+                            }
+                        }
+                    }
+                },
+                { 75, () => {
+                        foreach(Shot shot in lastShots) {
+                            shot.SetDirection(VectorUtils.GetDirection(shot.GetPos(), Player.getInstance().GetPos()));
+                            shot.SetSpeed(4);
+                        }
+                        lastShots.Clear();
+                    }
+                },
+                { 100, () => {newSpeed = RandomUtils.GetBetweenRange(5, 8); GetAnimationController()?.SetAnimation("running");} }
             }
             , false, true);
 
@@ -31,6 +50,8 @@ namespace Game
         public override void Update()
         {
             base.Update();
+
+            speed = MathUtils.Lerpf(speed, newSpeed, 0.1f);
 
             if (dead)
             {
@@ -70,7 +91,7 @@ namespace Game
                 }
                 else if (collider.GetType() == typeof(Player))
                 {
-                    App.app.Close();
+                    //App.app.Close();
                 }
             }
         }

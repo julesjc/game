@@ -7,27 +7,49 @@ namespace Game
     {
 
         private Vector2f direction;
-        private bool isFromEnemy;
+        private float newSpeed, speed;
 
-        public Shot(Vector2f startPos, Vector2f direction, bool isFromEnemy) : base(2)
+        private bool isFromEnemy;
+        private static Texture texture = new Texture("data/Sprites/epee.png");
+
+        public Shot(Vector2f startPos, Vector2f direction, float speed, bool isFromEnemy = true) : base(2)
         {
-            SetTexture(new Texture("data/Sprites/epee.png"));
             this.direction = direction;
+            this.isFromEnemy = isFromEnemy;
+            this.speed = speed;
+            newSpeed = speed;
             SetPos(startPos);
             SetScale(new Vector2f(0.2f, 0.2f));
             LookAt(GetPos() + direction);
-            this.isFromEnemy = isFromEnemy;
+            SetTexture(texture);
+
         }
 
         public override void Update()
         {
+            if (isFromEnemy)
+            {
+                speed = MathUtils.Lerpf(speed, newSpeed, 0.1f);
+            }
             base.Update();
-            Transform(direction);
+            Transform(direction * speed);
 
             if (IsOutOfScreen())
             {
                 Die();
             }
+        }
+
+        public void SetDirection(Vector2f direction)
+        {
+            this.direction = direction;
+            LookAt(GetPos() + direction);
+
+        }
+
+        public void SetSpeed(float speed)
+        {
+            this.newSpeed = speed;
         }
 
         public bool IsFromEnemy()

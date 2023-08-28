@@ -29,7 +29,7 @@ namespace Game
 
 		public static bool IsCirclesCollision(Vector2f posA, Vector2f posB, float radiusA, float radiusB)
 		{
-			return GraphicsUtils.GetDistanceBetweenVectorsSquared(posA, posB) < GraphicsUtils.GetSumSquared(radiusA, radiusB);
+			return VectorUtils.GetDistanceBetweenVectorsSquared(posA, posB) < MathUtils.GetSumSquared(radiusA, radiusB);
 		}
 
 		public static bool IsCircleRectCollision(Vector2f circlePos, float circleRadius, FloatRect rect)
