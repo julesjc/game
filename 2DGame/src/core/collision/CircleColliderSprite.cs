@@ -1,19 +1,19 @@
 ﻿namespace Game
 {
-    public abstract class CircleColliderObject2D : CircleCollidedObject2D, ICollider
+    public abstract class CircleColliderSprite : CircleCollidedSprite, ICollider
     {
-        private List<BaseObject> collidingObjects;
-        private List<BaseObject> layer;
-        public CircleColliderObject2D(float? hitRadius = null, int layerReference = 0) : base(hitRadius)
+        private List<BaseSceneObject> collidingObjects;
+        private List<BaseSceneObject> layer;
+        public CircleColliderSprite(float? hitRadius = null, int layerReference = 0) : base(hitRadius)
         {
-            collidingObjects = new List<BaseObject>();
-            layer = GameStateManager.GetCurrentScene()?.GetLayer(layerReference) ?? new List<BaseObject>();
+            collidingObjects = new List<BaseSceneObject>();
+            layer = GameStateManager.GetCurrentScene()?.GetLayer(layerReference) ?? new List<BaseSceneObject>();
         }
         override public void Update()
         {
             base.Update();
 
-            foreach (BaseObject obj in layer)
+            foreach (BaseSceneObject obj in layer)
             {
                 if (obj != this && CollisionUtils.IsCircleColliderCollidesObject(this, obj))
                 {
@@ -35,15 +35,15 @@
 
             }
         }
-        public virtual void OnCollisionEnter(BaseObject obj)
+        public virtual void OnCollisionEnter(BaseSceneObject collided)
         {
             //optional implementation
         }
-        public virtual void OnCollisionExit(BaseObject obj)
+        public virtual void OnCollisionExit(BaseSceneObject collided)
         {
             //optional implementation
         }
-        public virtual void Collision(BaseObject obj)
+        public virtual void Collision(BaseSceneObject collided)
         {
             //optional implementation
         }

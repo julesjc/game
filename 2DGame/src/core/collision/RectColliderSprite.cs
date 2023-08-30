@@ -2,19 +2,19 @@
 
 namespace Game
 {
-    public abstract class RectColliderObject2D : RectCollidedObject2D, ICollider
+    public abstract class RectColliderSprite : RectCollidedSprite, ICollider
     {
-        private List<BaseObject> collidingObjects;
-        private List<BaseObject> layer;
-        public RectColliderObject2D(Vector2f? hitbox = null, int layerReference = 0) : base(hitbox)
+        private List<BaseSceneObject> collidingObjects;
+        private List<BaseSceneObject> layer;
+        public RectColliderSprite(Vector2f? hitbox = null, int layerReference = 0) : base(hitbox)
         {
-            collidingObjects = new List<BaseObject>();
-            layer = GameStateManager.GetCurrentScene()?.GetLayer(layerReference) ?? new List<BaseObject>();
+            collidingObjects = new List<BaseSceneObject>();
+            layer = GameStateManager.GetCurrentScene()?.GetLayer(layerReference) ?? new List<BaseSceneObject>();
         }
         override public void Update()
         {
             base.Update();
-            foreach (BaseObject obj in layer)
+            foreach (BaseSceneObject obj in layer.ToList())
             {
                 if (obj != this && CollisionUtils.IsRectColliderCollidesObject(this, obj))
                 {
@@ -36,15 +36,15 @@ namespace Game
 
             }
         }
-        public virtual void OnCollisionEnter(BaseObject obj)
+        public virtual void OnCollisionEnter(BaseSceneObject collided)
         {
             //optional implementation
         }
-        public virtual void OnCollisionExit(BaseObject obj)
+        public virtual void OnCollisionExit(BaseSceneObject collided)
         {
             //optional implementation
         }
-        public virtual void Collision(BaseObject obj)
+        public virtual void Collision(BaseSceneObject collided)
         {
             //optional implementation
         }

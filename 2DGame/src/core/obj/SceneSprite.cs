@@ -3,13 +3,13 @@ using SFML.System;
 
 namespace Game
 {
-    public abstract class Object2D : BaseObject, IDrawable
+    public abstract class SceneSprite : BaseTransformable, IDrawable
     {
         private bool hidden;
         private Sprite sprite;
         private AnimationController? animationController;
 
-        public Object2D()
+        public SceneSprite()
         {
             //todo generify to use font shape etc
             sprite = new Sprite();
@@ -31,21 +31,6 @@ namespace Game
             }
         }
 
-        public void Transform(Vector2f v)
-        {
-            SetPos(GetPos() + v);
-        }
-
-        public void MoveTowards(Vector2f target, float speed)
-        {
-            Transform(VectorUtils.GetDirection(GetPos(), target) * speed);
-        }
-
-        public void LookAt(Vector2f direction)
-        {
-            SetRotation(VectorUtils.GetRotationAngle(GetPos(), direction));
-        }
-
         public void Hide()
         {
             hidden = true;
@@ -56,34 +41,34 @@ namespace Game
             hidden = false;
         }
 
-        public Vector2f GetPos()
+        public override Vector2f GetPos()
         {
             return sprite.Position;
         }
 
-        public void SetPos(Vector2f pos)
+        public override void SetPos(Vector2f pos)
         {
             sprite.Position = pos;
         }
 
 
-        public Vector2f GetScale()
+        public override Vector2f GetScale()
         {
             return sprite.Scale;
         }
 
-        public void SetScale(Vector2f scale)
+        public override void SetScale(Vector2f scale)
         {
             sprite.Scale = scale;
         }
 
 
-        public float GetRotation()
+        public override float GetRotation()
         {
             return sprite.Rotation;
         }
 
-        public void SetRotation(float degree)
+        public override void SetRotation(float degree)
         {
             sprite.Rotation = degree;
         }
@@ -119,13 +104,6 @@ namespace Game
         public AnimationController? GetAnimationController()
         {
             return animationController;
-        }
-
-        public bool IsOutOfScreen()
-        {
-            Vector2u screenSize = App.screenSize;
-            Vector2f pos = GetPos();
-            return !(pos.X > 0 && pos.X < screenSize.X && pos.Y > 0 && pos.Y < screenSize.Y);
         }
     }
 }

@@ -6,7 +6,7 @@ using SFML.Window;
 
 namespace Game
 {
-    class Player : CircleCollidedObject2D
+    class Player : RectColliderSprite
     {
 
         private int speed = 10;
@@ -15,7 +15,7 @@ namespace Game
         private static Sound shotSound = AudioManager.LoadSound("data/sound/punch.ogg");
         private static Texture[] textures = new Texture[] { new Texture("data/sprites/player.png"), new Texture("data/sprites/player2.png"), new Texture("data/sprites/player3.png"), new Texture("data/sprites/player4.png") };
 
-        public Player() : base(10)
+        public Player() : base()
         {
             instance = this;
 
@@ -30,8 +30,6 @@ namespace Game
 
         public override void Update()
         {
-            base.Update();
-
             if (Keyboard.IsKeyPressed(Keyboard.Key.LShift))
             {
                 speed = 5;
@@ -45,12 +43,12 @@ namespace Game
 
             if (GetPos().X < App.screenSize.X & Keyboard.IsKeyPressed(Keyboard.Key.D))
             {
-                playerDirection += VectorConstants.Left;
+                playerDirection += VectorConstants.Right;
                 SetScale(new Vector2f(1, 1));
             }
             else if (GetPos().X > 0 & Keyboard.IsKeyPressed(Keyboard.Key.Q))
             {
-                playerDirection -= VectorConstants.Left;
+                playerDirection -= VectorConstants.Right;
                 SetScale(new Vector2f(-1, 1));
             }
 
@@ -94,7 +92,43 @@ namespace Game
                 shotFrameCounter = 0;
             }
 
+            //movement before update
+            base.Update();
+
         }
+
+        public override void Collision(BaseSceneObject collided)
+        {
+            base.Collision(collided);
+
+
+            if (collided is Tile && !((Tile)collided).IsExit())
+            {
+
+                CollisionUtils.ApplyRectRigidCollision(this, (Tile)collided);
+            }
+
+        }
+
+        public override void OnCollisionEnter(BaseSceneObject collided)
+        {
+            base.OnCollisionEnter(collided);
+            if (collided is Tile && ((Tile)collided).IsExit())
+            {
+                ((SampleScene)GameStateManager.GetCurrentScene()).SetPlayerCanExit(true);
+            }
+        }
+
+        public override void OnCollisionExit(BaseSceneObject collided)
+        {
+            base.OnCollisionExit(collided);
+            if (collided is Tile && ((Tile)collided).IsExit())
+            {
+                ((SampleScene)GameStateManager.GetCurrentScene()).SetPlayerCanExit(false);
+            }
+        }
+
+
 
         public static Player getInstance()
         {

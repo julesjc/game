@@ -1,6 +1,6 @@
 ﻿namespace Game
 {
-    public class FramesTimer : BaseObject
+    public class FramesTimer : BaseSceneObject
     {
         private Dictionary<int, Callback> events;
         private int framesElapsed;

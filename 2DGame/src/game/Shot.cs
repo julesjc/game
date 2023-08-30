@@ -3,19 +3,19 @@ using SFML.System;
 
 namespace Game
 {
-    class Shot : CircleCollidedObject2D
+    class Shot : CircleColliderSprite
     {
 
         private Vector2f direction;
         private float newSpeed, speed;
-
-        private bool isFromEnemy;
+        private bool isFromEnemy, bounce;
         private static Texture texture = new Texture("data/Sprites/epee.png");
 
-        public Shot(Vector2f startPos, Vector2f direction, float speed, bool isFromEnemy = true) : base(2)
+        public Shot(Vector2f startPos, Vector2f direction, float speed, bool isFromEnemy = true, bool bounce = false) : base(2)
         {
             this.direction = direction;
             this.isFromEnemy = isFromEnemy;
+            this.bounce = bounce;
             this.speed = speed;
             newSpeed = speed;
             SetPos(startPos);
@@ -55,6 +55,22 @@ namespace Game
         public bool IsFromEnemy()
         {
             return isFromEnemy;
+        }
+
+        public override void OnCollisionEnter(BaseSceneObject collided)
+        {
+            base.OnCollisionEnter(collided);
+            if (collided is Tile)
+            {
+                if (bounce)
+                {
+                    //direction = direction/collided.getGlb;
+                }
+                else
+                {
+                    Die();
+                }
+            }
         }
     }
 }

@@ -1,10 +1,12 @@
-﻿namespace Game
+﻿using SFML.Graphics;
+
+namespace Game
 {
 	static class EngineUtils
 	{
 		public static bool IsDrawable(IBase obj)
 		{
-			return obj != null && typeof(IDrawable).IsAssignableFrom(obj.GetType());
+			return obj is IDrawable;
 		}
 	}
 }

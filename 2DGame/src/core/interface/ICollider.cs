@@ -2,9 +2,9 @@
 {
     interface ICollider
     {
-        void OnCollisionEnter(BaseObject collided);
-        void OnCollisionExit(BaseObject collided);
-        void Collision(BaseObject collided);
+        void OnCollisionEnter(BaseSceneObject collided);
+        void OnCollisionExit(BaseSceneObject collided);
+        void Collision(BaseSceneObject collided);
     }
 
 }

@@ -2,12 +2,12 @@
 
 namespace Game
 {
-    public abstract class CircleCollidedObject2D : Object2D
+    public abstract class CircleCollidedSprite : SceneSprite
     {
         private float hitRadius;
-        private bool isFromGlobalBounds;
+        private bool isFromGlobalBounds, isRigid;
 
-        public CircleCollidedObject2D(float? hitRadius = null) : base()
+        public CircleCollidedSprite(float? hitRadius = null) : base()
         {
             if (hitRadius != null)
             {
@@ -40,6 +40,16 @@ namespace Game
             {
                 hitRadius = GetSprite().GetGlobalBounds().Height / 2;
             }
+        }
+
+        public void SetRigid(bool isRigid)
+        {
+            this.isRigid = isRigid;
+        }
+
+        public bool IsRigid()
+        {
+            return isRigid;
         }
     }
 }

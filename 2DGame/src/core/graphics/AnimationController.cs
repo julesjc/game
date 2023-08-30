@@ -7,9 +7,9 @@ namespace Game
         private Animation[] animations;
         private string? currentAnimationId;
         private int framesCount, animationIndex, framesToWait;
-        private Object2D obj;
+        private SceneSprite obj;
         private Texture[]? texturesToDisplay;
-        public AnimationController(Object2D obj, Animation[] animations)
+        public AnimationController(SceneSprite obj, Animation[] animations)
         {
             this.animations = animations;
             this.obj = obj;

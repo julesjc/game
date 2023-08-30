@@ -8,13 +8,13 @@ namespace Game
 
 		public static bool IsRectCollidable(IBase obj)
 		{
-			return obj != null && typeof(RectCollidedObject2D).IsAssignableFrom(obj.GetType());
+			return obj is RectCollidedSprite;
 		}
 
 
 		public static bool IsCircleCollidable(IBase obj)
 		{
-			return obj != null && typeof(CircleCollidedObject2D).IsAssignableFrom(obj.GetType());
+			return obj is CircleCollidedSprite;
 		}
 
 		public static bool IsRectsContains(FloatRect rect, Vector2f point)
@@ -54,35 +54,74 @@ namespace Game
 			return cornerDistanceSq <= Math.Pow(circleRadius, 2);
 		}
 
-		public static bool IsRectColliderCollidesObject(RectColliderObject2D collider, BaseObject obj)
+		public static bool IsRectColliderCollidesObject(RectColliderSprite collider, BaseSceneObject obj)
 		{
 
 			if (IsRectCollidable(obj))
 			{
-				return IsRectsCollision(collider.GetGlobalHitbox(), ((RectCollidedObject2D)obj).GetGlobalHitbox());
+				return IsRectsCollision(collider.GetGlobalHitbox(), ((RectCollidedSprite)obj).GetGlobalHitbox());
 			}
 			else if (IsCircleCollidable(obj))
 			{
-				CircleCollidedObject2D castObj = (CircleCollidedObject2D)obj;
+				CircleCollidedSprite castObj = (CircleCollidedSprite)obj;
 				return IsCircleRectCollision(castObj.GetPos(), castObj.GetHitRadius(), collider.GetGlobalHitbox());
 			}
 			return false;
 		}
 
 
-		public static bool IsCircleColliderCollidesObject(CircleColliderObject2D collider, BaseObject obj)
+		public static bool IsCircleColliderCollidesObject(CircleColliderSprite collider, BaseSceneObject obj)
 		{
 			if (IsCircleCollidable(obj))
 			{
-				CircleCollidedObject2D castObj = (CircleCollidedObject2D)obj;
+				CircleCollidedSprite castObj = (CircleCollidedSprite)obj;
 				return IsCirclesCollision(collider.GetPos(), castObj.GetPos(), collider.GetHitRadius(), castObj.GetHitRadius());
 			}
 			else if (IsRectCollidable(obj))
 			{
-				RectCollidedObject2D castObj = (RectCollidedObject2D)obj;
+				RectCollidedSprite castObj = (RectCollidedSprite)obj;
 				return IsCircleRectCollision(collider.GetPos(), collider.GetHitRadius(), castObj.GetGlobalHitbox());
 			}
 			return false;
+		}
+
+		public static void ApplyRectRigidCollision(RectColliderSprite collider, RectCollidedSprite rigidbody)
+		{
+			FloatRect colliderHitbox = collider.GetGlobalHitbox();
+			FloatRect rigidBodyHitbox = rigidbody.GetGlobalHitbox();
+
+			Vector2f colliderPos = collider.GetPos();
+			Vector2f rigidbodyPos = rigidbody.GetPos();
+
+			float overlapX = Math.Min(colliderHitbox.Left + colliderHitbox.Width, rigidBodyHitbox.Left + rigidBodyHitbox.Width) -
+							 Math.Max(colliderHitbox.Left, rigidBodyHitbox.Left);
+			float overlapY = Math.Min(colliderHitbox.Top + colliderHitbox.Height, rigidBodyHitbox.Top + rigidBodyHitbox.Height) -
+							 Math.Max(colliderHitbox.Top, rigidBodyHitbox.Top);
+
+			if (overlapX < overlapY)
+			{
+				if (colliderPos.X > rigidbodyPos.X)
+				{
+					colliderPos.X += overlapX;
+				}
+				else
+				{
+					colliderPos.X -= overlapX;
+				}
+			}
+			else
+			{
+				if (colliderPos.Y > rigidbodyPos.Y)
+				{
+					colliderPos.Y += overlapY;
+				}
+				else
+				{
+					colliderPos.Y -= overlapY;
+				}
+			}
+
+			collider.SetPos(colliderPos);
 		}
 	}
 }

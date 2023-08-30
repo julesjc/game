@@ -1,6 +1,6 @@
 ﻿namespace Game
 {
-    public abstract class BaseObject : IBase
+    public abstract class BaseSceneObject : IBase
     {
         private bool dead;
         private int currentLayer;
@@ -28,7 +28,7 @@
             return currentLayer;
         }
 
-        public BaseObject Bind(int layer = 0)
+        public BaseSceneObject Bind(int layer = 0)
         {
             GameStateManager.GetCurrentScene()?.Bind(this, layer);
             return this;
