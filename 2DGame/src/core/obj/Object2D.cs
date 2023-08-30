@@ -11,6 +11,7 @@ namespace Game
 
         public Object2D()
         {
+            //todo generify to use font shape etc
             sprite = new Sprite();
         }
 
@@ -122,7 +123,7 @@ namespace Game
 
         public bool IsOutOfScreen()
         {
-            Vector2f screenSize = App.app.DefaultView.Size;
+            Vector2u screenSize = App.screenSize;
             Vector2f pos = GetPos();
             return !(pos.X > 0 && pos.X < screenSize.X && pos.Y > 0 && pos.Y < screenSize.Y);
         }

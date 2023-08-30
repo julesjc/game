@@ -1,3 +1,4 @@
+using System.Numerics;
 using SFML.Audio;
 using SFML.System;
 
@@ -18,7 +19,7 @@ namespace Game
             obj.SetPos(App.screenCenter);
             obj.Bind();
 
-            Vector2f windowSize = App.app.DefaultView.Size;
+            Vector2u windowSize = App.screenSize;
             FramesTimer step = new FramesTimer(new Dictionary<int, FramesTimer.Callback>()
             {
                 { 100 - elapsed, () => {new Yohann(new Vector2f(windowSize.X/2, windowSize.Y)).Bind(); }},
@@ -30,7 +31,7 @@ namespace Game
             }
             , false, true);
             step.Bind();
-
+            MapUtils.GenerateMap(obj.GetPos());
             music.Loop = true;
             // music.Play();
         }

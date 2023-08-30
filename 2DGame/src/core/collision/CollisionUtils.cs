@@ -34,21 +34,24 @@ namespace Game
 
 		public static bool IsCircleRectCollision(Vector2f circlePos, float circleRadius, FloatRect rect)
 		{
-			Vector2f circleDistance = new Vector2f(Math.Abs(circlePos.X - rect.Left), Math.Abs(circlePos.Y - rect.Top));
+			Vector2f circleDistance = new Vector2f(
+				Math.Abs(circlePos.X - (rect.Left + rect.Width / 2)),
+				Math.Abs(circlePos.Y - (rect.Top + rect.Height / 2))
+			);
 
-			if ((circleDistance.X > (rect.Width / 2 + circleRadius)) || (circleDistance.Y > (rect.Height / 2 + circleRadius)))
+			if (circleDistance.X > (rect.Width / 2 + circleRadius) || circleDistance.Y > (rect.Height / 2 + circleRadius))
 			{
 				return false;
 			}
 
-			if ((circleDistance.X <= (rect.Width / 2)) || (circleDistance.Y <= (rect.Height / 2)))
+			if (circleDistance.X <= (rect.Width / 2) || circleDistance.Y <= (rect.Height / 2))
 			{
 				return true;
 			}
 
-			double cornerDistance_sq = Math.Sqrt(circleDistance.X - rect.Width / 2) + Math.Sqrt(circleDistance.Y - rect.Height / 2);
+			double cornerDistanceSq = Math.Pow(circleDistance.X - rect.Width / 2, 2) + Math.Pow(circleDistance.Y - rect.Height / 2, 2);
 
-			return cornerDistance_sq <= Math.Sqrt(circleRadius);
+			return cornerDistanceSq <= Math.Pow(circleRadius, 2);
 		}
 
 		public static bool IsRectColliderCollidesObject(RectColliderObject2D collider, BaseObject obj)

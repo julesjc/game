@@ -4,14 +4,14 @@ using SFML.System;
 
 namespace Game
 {
-    class Yohann : CircleColliderObject2D
+    class Yohann : RectColliderObject2D
     {
         private float speed = 1, timeElapsed = 0;
         private bool dead;
         private static Sound deathSound = AudioManager.LoadSound("data/sound/vladmarche.ogg");
         private static Texture texture = new Texture("data/sprites/yohan.png");
 
-        public Yohann(Vector2f pos) : base(100)
+        public Yohann(Vector2f pos) : base()
         {
             SetTexture(texture);
             SetPos(pos);

@@ -47,7 +47,7 @@ namespace Game
 
         public FloatRect GetGlobalHitbox()
         {
-            return new FloatRect(GetPos().X + hitbox.X / 2, GetPos().Y + hitbox.Y / 2, hitbox.X, hitbox.Y);
+            return new FloatRect(GetPos().X - hitbox.X / 2, GetPos().Y - hitbox.Y / 2, hitbox.X, hitbox.Y);
         }
     }
 }

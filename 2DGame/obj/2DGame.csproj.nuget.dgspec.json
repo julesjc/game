@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\depot\\game\\2DGame\\2DGame.csproj": {}
+    "C:\\Users\\Autre\\Desktop\\game\\2DGame\\2DGame.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\depot\\game\\2DGame\\2DGame.csproj": {
+    "C:\\Users\\Autre\\Desktop\\game\\2DGame\\2DGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\depot\\game\\2DGame\\2DGame.csproj",
+        "projectUniqueName": "C:\\Users\\Autre\\Desktop\\game\\2DGame\\2DGame.csproj",
         "projectName": "2DGame",
-        "projectPath": "C:\\Users\\Admin\\depot\\game\\2DGame\\2DGame.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\depot\\game\\2DGame\\obj\\",
+        "projectPath": "C:\\Users\\Autre\\Desktop\\game\\2DGame\\2DGame.csproj",
+        "packagesPath": "C:\\Users\\Autre\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Autre\\Desktop\\game\\2DGame\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Autre\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"

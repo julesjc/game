@@ -34,13 +34,6 @@
         }
         public virtual void Unload()
         {
-            foreach (List<BaseObject> layer in layers.Values.ToList())
-            {
-                foreach (BaseObject obj in layer.ToList())
-                {
-                    obj.Unload();
-                }
-            }
             layers.Clear();
         }
 

@@ -9,7 +9,7 @@ namespace Game
         public static RenderWindow app = new RenderWindow(new VideoMode(1024, 768), "Game", Styles.Close);
         public static bool canInput = false;
         public static Vector2f screenCenter = new Vector2f(app.Size.X / 2, app.Size.Y / 2);
-
+        public static Vector2u screenSize = app.Size;
         static void OnClose(object sender, EventArgs e)
         {
             // Close the window when OnClose event is received

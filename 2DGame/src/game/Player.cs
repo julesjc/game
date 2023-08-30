@@ -43,7 +43,7 @@ namespace Game
 
             Vector2f playerDirection = new(0, 0);
 
-            if (GetPos().X < 1024 & Keyboard.IsKeyPressed(Keyboard.Key.D))
+            if (GetPos().X < App.screenSize.X & Keyboard.IsKeyPressed(Keyboard.Key.D))
             {
                 playerDirection += VectorConstants.Left;
                 SetScale(new Vector2f(1, 1));
@@ -54,7 +54,7 @@ namespace Game
                 SetScale(new Vector2f(-1, 1));
             }
 
-            if (GetPos().Y < 768 & Keyboard.IsKeyPressed(Keyboard.Key.S))
+            if (GetPos().Y < App.screenSize.Y & Keyboard.IsKeyPressed(Keyboard.Key.S))
             {
                 playerDirection += VectorConstants.Up;
             }

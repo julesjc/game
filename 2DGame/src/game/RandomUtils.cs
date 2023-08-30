@@ -14,5 +14,10 @@ namespace Game
         {
             return rand.Next(a, b);
         }
+
+        public static int Next(int a)
+        {
+            return rand.Next(a);
+        }
     }
 }
