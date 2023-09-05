@@ -9,7 +9,7 @@ namespace Game
         public RectColliderSprite(Vector2f? hitbox = null, int layerReference = 0) : base(hitbox)
         {
             collidingObjects = new List<BaseSceneObject>();
-            layer = GameStateManager.GetCurrentScene()?.GetLayer(layerReference) ?? new List<BaseSceneObject>();
+            layer = AppManager.GetCurrentScene<BaseScene>()?.GetLayer(layerReference) ?? new List<BaseSceneObject>();
         }
         override public void Update()
         {

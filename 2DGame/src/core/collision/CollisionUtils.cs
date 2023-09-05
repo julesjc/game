@@ -6,13 +6,13 @@ namespace Game
 	static class CollisionUtils
 	{
 
-		public static bool IsRectCollidable(IBase obj)
+		public static bool IsRectCollidable(BaseSceneObject obj)
 		{
 			return obj is RectCollidedSprite;
 		}
 
 
-		public static bool IsCircleCollidable(IBase obj)
+		public static bool IsCircleCollidable(BaseSceneObject obj)
 		{
 			return obj is CircleCollidedSprite;
 		}
@@ -59,12 +59,12 @@ namespace Game
 
 			if (IsRectCollidable(obj))
 			{
-				return IsRectsCollision(collider.GetGlobalHitbox(), ((RectCollidedSprite)obj).GetGlobalHitbox());
+				return IsRectsCollision(collider.GetHitbox(), ((RectCollidedSprite)obj).GetHitbox());
 			}
 			else if (IsCircleCollidable(obj))
 			{
 				CircleCollidedSprite castObj = (CircleCollidedSprite)obj;
-				return IsCircleRectCollision(castObj.GetPos(), castObj.GetHitRadius(), collider.GetGlobalHitbox());
+				return IsCircleRectCollision(castObj.GetPos(), castObj.GetHitRadius(), collider.GetHitbox());
 			}
 			return false;
 		}
@@ -80,15 +80,15 @@ namespace Game
 			else if (IsRectCollidable(obj))
 			{
 				RectCollidedSprite castObj = (RectCollidedSprite)obj;
-				return IsCircleRectCollision(collider.GetPos(), collider.GetHitRadius(), castObj.GetGlobalHitbox());
+				return IsCircleRectCollision(collider.GetPos(), collider.GetHitRadius(), castObj.GetHitbox());
 			}
 			return false;
 		}
 
 		public static void ApplyRectRigidCollision(RectColliderSprite collider, RectCollidedSprite rigidbody)
 		{
-			FloatRect colliderHitbox = collider.GetGlobalHitbox();
-			FloatRect rigidBodyHitbox = rigidbody.GetGlobalHitbox();
+			FloatRect colliderHitbox = collider.GetHitbox();
+			FloatRect rigidBodyHitbox = rigidbody.GetHitbox();
 
 			Vector2f colliderPos = collider.GetPos();
 			Vector2f rigidbodyPos = rigidbody.GetPos();

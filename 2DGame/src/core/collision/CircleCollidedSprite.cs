@@ -5,7 +5,7 @@ namespace Game
     public abstract class CircleCollidedSprite : SceneSprite
     {
         private float hitRadius;
-        private bool isFromGlobalBounds, isRigid;
+        private bool isFromGlobalBounds, isEnabled;
 
         public CircleCollidedSprite(float? hitRadius = null) : base()
         {
@@ -23,7 +23,7 @@ namespace Game
 
         public float GetHitRadius()
         {
-            return hitRadius;
+            return isEnabled ? hitRadius : 0;
         }
 
 
@@ -42,14 +42,14 @@ namespace Game
             }
         }
 
-        public void SetRigid(bool isRigid)
+        public void DisableCollision()
         {
-            this.isRigid = isRigid;
+            this.isEnabled = false;
         }
 
-        public bool IsRigid()
+        public void EnableCollision()
         {
-            return isRigid;
+            this.isEnabled = true;
         }
     }
 }

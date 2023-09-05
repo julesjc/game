@@ -60,8 +60,7 @@ namespace Game
             }
         }
 
-
-        public FloatRect GetGlobalHitbox()
+        public FloatRect GetHitbox()
         {
             return new FloatRect(GetPos().X + hitboxOffsetFromOrigin.X - hitboxSize.X / 2, GetPos().Y + hitboxOffsetFromOrigin.Y - hitboxSize.Y / 2, hitboxSize.X, hitboxSize.Y);
         }

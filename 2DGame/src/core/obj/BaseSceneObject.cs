@@ -30,7 +30,7 @@
 
         public BaseSceneObject Bind(int layer = 0)
         {
-            GameStateManager.GetCurrentScene()?.Bind(this, layer);
+            AppManager.GetCurrentScene<BaseScene>()?.Bind(this, layer);
             return this;
         }
 

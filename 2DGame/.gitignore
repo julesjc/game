@@ -1,2 +1,4 @@
 *.csold
 bin/*
+obj/*
+bin/*

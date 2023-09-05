@@ -7,7 +7,7 @@
         public CircleColliderSprite(float? hitRadius = null, int layerReference = 0) : base(hitRadius)
         {
             collidingObjects = new List<BaseSceneObject>();
-            layer = GameStateManager.GetCurrentScene()?.GetLayer(layerReference) ?? new List<BaseSceneObject>();
+            layer = AppManager.GetCurrentScene<BaseScene>()?.GetLayer(layerReference) ?? new List<BaseSceneObject>();
         }
         override public void Update()
         {

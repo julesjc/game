@@ -13,7 +13,7 @@ namespace Game
         public abstract void SetRotation(float degree);
         public bool IsOutOfScreen()
         {
-            Vector2u screenSize = App.screenSize;
+            Vector2u screenSize = AppManager.GetScreenSize();
             Vector2f pos = GetPos();
             return !(pos.X > 0 && pos.X < screenSize.X && pos.Y > 0 && pos.Y < screenSize.Y);
         }

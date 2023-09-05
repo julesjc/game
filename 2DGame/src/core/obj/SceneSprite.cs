@@ -3,7 +3,7 @@ using SFML.System;
 
 namespace Game
 {
-    public abstract class SceneSprite : BaseTransformable, IDrawable
+    public class SceneSprite : BaseTransformable, IDrawable
     {
         private bool hidden;
         private Sprite sprite;
@@ -27,7 +27,7 @@ namespace Game
         {
             if (!hidden)
             {
-                App.app.Draw(sprite);
+                AppManager.GetWindow().Draw(sprite);
             }
         }
 

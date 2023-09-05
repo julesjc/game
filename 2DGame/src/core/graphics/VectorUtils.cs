@@ -1,4 +1,5 @@
-﻿using SFML.System;
+﻿using System.Numerics;
+using SFML.System;
 
 
 namespace Game
@@ -65,5 +66,17 @@ namespace Game
 
             return new Vector2f(1.0f + sinScale, 1.0f + cosScale);
         }
+
+        public static Vector2f Reflect(Vector2f colliderCenter, Vector2f collidedCenter)
+        {
+            Vector2f collisionVector = colliderCenter - collidedCenter;
+
+            float angleOfIncidence = (float)Math.Atan2(collisionVector.Y, collisionVector.X);
+
+            float angleOfReflection = angleOfIncidence + (float)Math.PI; // Reflect by 180 degrees
+
+            return -new Vector2f((float)Math.Cos(angleOfReflection), (float)Math.Sin(angleOfReflection));
+        }
+
     }
 }

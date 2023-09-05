@@ -1,9 +1,4 @@
-﻿using System.Security.Cryptography;
-using System;
-using SFML.System;
-using SFML.Graphics;
-
-namespace Game
+﻿namespace Game
 {
     static class IOUtils
     {
